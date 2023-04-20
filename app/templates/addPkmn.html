@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h3>Add new Pokemon:</h3>
+{% endblock %}
+
+
+  {% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <form class="form mb-1 mt-2 mt-md-0" method="POST" action="/pokemon/add">
+	<label for="num">Number:</label>
+	<input name="num" class="form-control mr-sm-mb-2" type="text" placeholder="Number" value="000">
+	<label for="name">Name:</label>
+	<input name="name" class="form-control mr-sm-2" type="text" placeholder="Name" value="Name">
+	<label for="img">Image:</label>
+	<input name="img" class="form-control mr-sm-2" type="text" placeholder="Image" onchange="document.getElementById('imgPrev').src = this.value;" value="http://www.serebii.net/pokemongo/pokemon/001.png">
+	<label for="type">Types:</label>
+	<input name="type" class="form-control mr-sm-2" type="text" placeholder="Types" value="['Type1','Type2']">
+	<label for="name">Prev Evol:</label>
+	<input name="prev" class="form-control mr-sm-2" type="text" placeholder="Prev Evol" value="[{'num':num1,'name':name1},{'num':num2,'name':name2}]">
+	<label for="name">Next Evol:</label>
+	<input name="next" class="form-control mr-sm-2" type="text" placeholder="Next Evol" value="[{'num':num1,'name':name1},{'num':num2,'name':name2}]">
+	<button class="btn btn mt-2 mr-sm-2" id="saveBtn" type="submit">Save</button>
+      </form>
+    </div>
+    <div class="col-md-4">
+      Preview image:
+      <img src="http://www.serebii.net/pokemongo/pokemon/001.png" id="imgPrev" width="200" height="200"></img>
+    </div>
+  </div>
+  {% endblock %}

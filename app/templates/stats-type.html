@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Stats<br/></h1>
+{% endblock %}
+
+{% block content %}
+<h3>Pokemon by type:<br/></h3>
+<div id="chart-type" class="mb-3" style="width:90%; height:500px;"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+        var chart = Highcharts.chart('chart-type', { // Chart creation
+            chart: {
+		backgroundColor: '', // Transparent background so it works with dark-mode
+                type: 'bar'
+            },
+            title: {
+                text: 'Number of Pokemon of each type',
+		style:{
+		    color: '#e00090'
+		}
+            },
+            xAxis: {
+                categories: {{types|safe}}, // safe to prevent character ' from being renderized as &#39;
+		labels:{
+		    style:{ // Font and colors must be seen in both light and dark modes
+			fontWeight: 'bold',
+			fontSize: '13px',
+			color: '#0098ff'
+		    }
+		}
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+            series: [{
+		name: 'No. of Pokemon',
+		color: '#6696f6',
+                data: {{counts}}
+            }],
+	    legend: {
+		itemStyle: {
+		    color: '#00da8a'
+		}
+	    }
+        });
+    });  
+</script>
+
+{% endblock %}

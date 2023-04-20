@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Map<br/></h1>
+<h4>Have fun exploring!<br/></h4>
+{% endblock %}
+
+{% block search %}
+<div class="row">
+  <div class="col-md-8">
+<form class="form-inline mb-2 mt-4 mt-md-0">
+  <label for="lat" class="mr-2">Latitude:</label>
+  <input name="lat" id="lat" class="form-control mr-sm-2" type="number" step="0.0005" min="-85" max="85" placeholder="Latitude" onchange="updateCoords()">
+  <label for="lng" class="mr-2">Longitude:</label>
+  <input name="lng" id="lng" class="form-control mr-sm-2" type="number" step="0.0005" placeholder="Longitude" onchange="updateCoords()">
+</form>
+  </div>
+  <div class="col-md-2">
+    <a class="btn btn ml-4" id="locationBtn" onclick="goToLoc(37.197,-3.624)">ETSIIT UGR</a>
+  </div>
+  <div class="col-md-2">
+    <a class="btn btn ml-4" id="locationBtn" onclick="goToLoc(48.85825,2.2945)">Eiffel Tower</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="map-explore" class="mb-3" style="width:100%; height:600px;"></div>
+
+<script>
+  const initial=[37.197,-3.624]; // Starting coordinates (ETSIIT)
+
+  document.getElementById("lat").value=initial[0]; // Fija los valores iniciales del formulario
+  document.getElementById("lng").value=initial[1];
+  
+// Initialize the map on the "map" div with a given center and zoom
+var map = L.map('map-explore', {
+    center: initial,
+    zoom: 15
+});
+
+  // Layer with the map image
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 21
+  }).addTo(map);
+
+  var marker=L.marker(initial, {draggable:true}).addTo(map).bindPopup('Latitude: '+initial[0]+'</br>'+'Longitude: '+initial[1]).openPopup(); // Muestra coordenadas
+
+  marker.on('dragend', function(event){ // When dragging stops, center the map on the marker
+    var marker = event.target;
+    var position = marker.getLatLng();
+    marker.setLatLng(new L.LatLng(position.lat, position.lng),{draggable:'true'});
+      map.panTo(new L.LatLng(position.lat, position.lng));
+  });
+
+  marker.on('drag', function(event){ // Update coordinates while dragging
+      var marker = event.target;
+      var position = marker.getLatLng();
+      marker.bindPopup('Latitude: '+position.lat.toFixed(4)+'</br>'+'Longitude: '+position.lng.toFixed(4)).openPopup(); // Muestra coordenadas
+
+      document.getElementById("lat").value=position.lat.toFixed(4); // Update the coordinates in the form attending to the marker
+      document.getElementById("lng").value=position.lng.toFixed(4);
+  });
+
+  function updateCoords(){ // Update the coordinates in the marker attending to the form
+      var lat = document.getElementById("lat").value;
+      var lng = document.getElementById("lng").value;
+
+      marker.setLatLng(new L.LatLng(lat, lng),{draggable:'true'});
+      map.panTo(new L.LatLng(lat, lng));
+      marker.bindPopup('Latitud: '+lat+'</br>'+'Longitud: '+lng).openPopup(); // Show coordinates
+  };
+
+  function goToLoc(lat, lng){ // Moves to location (lat, lng)
+      document.getElementById("lat").value=lat;
+      document.getElementById("lng").value=lng;
+      updateCoords();
+  };
+</script>
+
+{% endblock %}

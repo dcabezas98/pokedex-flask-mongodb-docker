@@ -1,0 +1,22 @@
+# docker-compose.yml
+version: '3.7'
+
+services: 
+  flask:
+    build: .
+    command: python -u app.py
+    container_name: flask-container
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+    volumes:
+      - ./app:/app
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-container
+    ports:
+      - 27017:27017
+    volumes:
+      - ./dump:/dump

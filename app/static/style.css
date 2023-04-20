@@ -1,0 +1,88 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: white;
+    color: black;
+}
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #ccccff;
+}
+
+/***************************************/
+#navbar {
+    background-color: #662222;
+}
+
+#navb-item {
+    color: #ffffff;
+    background-color: #662222;
+}
+
+#navb-item:hover {
+    background-color: #cc6666;
+}
+
+#dropd{
+    background-color: #662222;
+}
+
+#header {
+    font-weight: bold;
+    border: solid;
+}
+
+#instance{
+    border-bottom: solid;
+    border-left: solid;
+    border-right: solid;
+}
+
+#editBtn{
+    color: #060606;
+    background-color: #cfcf4f;
+    border-color: #cfcf4f;
+}
+
+#editBtn:hover{
+    background-color: #c0c040;
+    border-color: #c0c040;
+}
+
+#saveBtn{
+    background-color: #ffc040;
+    border-color: #ffc040;
+    color: #000000;
+}
+
+#darkBtn{
+    background-color: #cfcf4f;
+    border-color: #cfcf4f;
+    color: #000000;
+}
+
+#darkBtn:hover{
+}
+
+#locationBtn{
+    background-color: #ffc040;
+    border-color: #ffc040;
+    color: #000000;
+}

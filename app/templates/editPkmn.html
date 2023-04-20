@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h3>Edit Pokemon:</h3>
+{% endblock %}
+
+
+  {% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <form class="form mb-1 mt-2 mt-md-0" method="POST" action="/pokemon/edit/{{pok['num']}}">
+	<label for="num">Number:</label>
+	<input name="num" class="form-control mr-sm-mb-2" type="text" placeholder="Number" value="{{pok['num']}}">
+	<label for="name">Name:</label>
+	<input name="name" class="form-control mr-sm-2" type="text" placeholder="Name" value="{{pok['name']}}">
+	<label for="img">Image:</label>
+	<input name="img" class="form-control mr-sm-2" type="text" placeholder="Image" onchange="document.getElementById('imgPrev').src = this.value;" value="{{pok['img']}}">
+	<label for="type">Types:</label>
+	<input name="type" class="form-control mr-sm-2" type="text" placeholder="Types" value="{{pok['type']}}">
+	<label for="name">Prev Evol:</label>
+	<input name="prev" class="form-control mr-sm-2" type="text" placeholder="Prev Evol" value="{{pok['prev_evolution']}}">
+	<label for="name">Next Evol:</label>
+	<input name="next" class="form-control mr-sm-2" type="text" placeholder="Next Evol" value="{{pok['next_evolution']}}">
+	<button class="btn btn mt-2 mr-sm-2" id="saveBtn" type="submit">Save</button>
+      </form>
+      <a class="btn btn mb-1" onclick="return confirm('Are you sure?')" href="/pokemon/delete/{{pok['num']}}">Delete</a>
+    </div>
+    <div class="col-md-4">
+      Preview image:
+      <img src="{{pok['img']}}" id="imgPrev" width="200" height="200"></img>
+    </div>
+  </div>
+  {% endblock %}

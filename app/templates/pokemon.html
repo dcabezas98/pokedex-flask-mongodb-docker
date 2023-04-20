@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Pokemon<br/></h1>
+{% endblock %}
+
+{% block search %}
+<div class="row">
+    <div class="col-md-4">
+    <h2>Search:</h2>
+<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
+<input name="num" class="form-control mr-sm-2" type="number" placeholder="Number">
+<button class="btn btn-success mr-sm-2" type="submit">By number</button>
+</form>
+
+<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
+    <input name="name" class="form-control mr-sm-2" type="text" placeholder="Name">
+<button class="btn btn-success mr-sm-2" type="submit">By name</button>
+</form>
+
+<form class="form-inline mb-1 mt-4 mt-md-0 mb-2" method="POST" action="/pokemon">
+    <input name="type" class="form-control mr-sm-2" type="text" placeholder="Type">
+<button class="btn btn-success mr-sm-2" type="submit">By type</button>
+</form>
+</div>
+<div class="col-md-4">
+    <h2>Advanced search:</h2>
+    <form class="form mb-1 mt-0" method="POST" action="/pokemon/adv">
+        <input name="name" class="form-control mt-2" type="text" placeholder="Name">
+        <input name="type" class="form-control mt-2" type="text" placeholder="Type">
+    <button class="btn btn-success mt-2" type="submit">Search</button>
+    </form>
+</div>
+<div class="col-md-2 ml-4">
+    <a class="btn btn ml-4" id="saveBtn" href="/pokemon/add">Add New Pokemon</a>
+</div>
+</div>
+{% endblock %}
+
+{% block content %}
+<strong>Showing: {{n}}</strong>
+<div class="row mt-2" id="header">
+    <div class="col">Nº</div>
+    <div class="col">Name</div>
+    <div class="col">Image</div>
+    <div class="col">Type</div>
+    <div class="col">Prev Evol</div>
+    <div class="col">Next Evol</div>
+    <div class="col"></div>
+</div>
+{% for pok in pkmlist %}
+<div class="row" id="instance">
+    <div class="col">{{pok['num']}}</div>
+    <div class="col">{{pok['name']}}</div>
+    <div class="col"><img src="{{pok['img']}}" width="120" height="120"></img></div>
+    <div class="col">
+        {% for t in pok['type'] %}
+        {{t}}<br/> 
+        {% endfor %}
+    </div>
+    <div class="col">
+        {% if 'prev_evolution' in pok %}
+        {% for e in pok['prev_evolution'] %}
+            {{e['num']}}: {{e['name']}}<br/>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col">
+        {% if 'next_evolution' in pok %}
+        {% for e in pok['next_evolution'] %}
+            {{e['num']}}: {{e['name']}}<br/>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col">
+        <a class="btn btn mt-4" id="editBtn" href="/pokemon/edit/{{pok['num']}}">Edit<br/>Delete</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
