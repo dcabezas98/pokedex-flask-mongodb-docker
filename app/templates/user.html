@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+<!-- If there is a logged user, there is a message for him/her -->
+<!-- There is a generic message otherwise -->
+{% block name %}
+{% if session['user'] %}
+<h1>{{session['user']}}<br/></h1>
+{% else %}
+There is no session. <a href="/home">Back.</a>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if session['user'] %}
+<p><strong>Username: </strong>{{session['user']}}</p>
+<p><strong>Favourite color: </strong>{{user['color']}}</p>
+<a class="btn btn mb-1" href="/change">Edit</a>
+<a class="btn btn mb-1" onclick="return confirm('Are you sure?')" href="/delete">Delete user</a>
+{% endif %}
+{% endblock %}

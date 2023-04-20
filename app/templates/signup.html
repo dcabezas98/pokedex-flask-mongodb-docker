@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Register<br/></h1>
+{% endblock %}
+
+
+{% block content %}
+<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/signup">
+  <input name="user" class="form-control mr-sm-2" type="text" placeholder="User">
+  <input name="color" class="form-control mr-sm-2" type="text" placeholder="Favourite color">
+  <input name="passwd" class="form-control mr-sm-2" type="password" placeholder="Password">
+  <button class="btn btn mr-sm-2" id="signup-btn" type="submit">Sign Up</button>
+</form>
+{% endblock %}

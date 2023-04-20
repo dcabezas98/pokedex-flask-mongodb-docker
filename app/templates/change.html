@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block name %}
+{% if session['user'] %}
+<h1>{{session['user']}}<br/></h1>
+{% else %}
+There is no session. <a href="/home">Back.</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if session['user'] %}
+<div class="row">
+    <div class="col-md-4">
+<form class="form mb-1 mt-4 mt-md-0" method="POST" action="/change">
+    <label for="user">Usuario:</label>
+    <input name="user" class="form-control mr-sm-2" type="text" placeholder="User" value="{{session['user']}}">
+    <label for="color">Favourite color:</label>
+    <input name="color" class="form-control mr-sm-2" type="text" placeholder="Favourite color" value="{{user['color']}}">
+    <label for="passwd">Password:</label>
+    <input name="passwd" class="form-control mr-sm-2" type="password" placeholder="Password" value="{{user['passwd']}}">
+    <button class="btn btn mr-mt-sm-2" type="submit">Save</button>
+  </form>
+  </div>
+  </div>
+{% endif %}
+{% endblock %}

@@ -86,3 +86,36 @@ body {
     border-color: #ffc040;
     color: #000000;
 }
+
+#signup-btn{
+    background-color: #4040ff;
+    border-color: #4040ff;
+    color: #ffffff;
+}
+
+#signup-btn:hover{
+    background-color: #3030ee;
+    border-color: #3030ee;
+}
+
+#user-btn{
+  background-color: #c0a040;
+  border-color: #c0a040;
+  color: #ffffff;
+}
+
+#user-btn:hover{
+  background-color: #a08020;
+  border-color: #a08020;
+}
+
+#logout-btn{
+  background-color: #4040ff;
+  border-color: #4040ff;
+  color: #ffffff;
+}
+
+#logout-btn:hover{
+  background-color: #3030ee;
+  border-color: #3030ee;
+}

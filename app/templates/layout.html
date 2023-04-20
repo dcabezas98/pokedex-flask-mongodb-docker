@@ -31,7 +31,7 @@
 	  <span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
-	  <ul class="navbar-nav mr-auto"> <!-- mr-auto para dejar todo el margen disponible a la derecha -->
+	  <ul class="navbar-nav mr-auto"> <!-- mr-auto leaves all the available margin to the right -->
 	    
 	    <li class="nav-item active mr-1" id="navb-item">
 	      <a class="nav-link" href="/pokemon">Pokemon List</a>
@@ -51,7 +51,18 @@
 	      </ul>
 	    </li>
 	  </ul>
-	  <strong class="text mr-4" style="color:#FFFFFF;background-color:#000000;" id="date"></strong>
+	  {% if session['user'] %}
+	<a class="btn btn mb-1 mr-2" id="user-btn" href="/user">{{session['user']}}</a>
+	<a class="btn btn mb-1" id="logout-btn" href="/logout">Log Out</a>
+	{% else %}
+	  <form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/login">
+		<input name="user" class="form-control mr-sm-2" type="text" placeholder="User">
+		<input name="passwd" class="form-control mr-sm-2" type="password" placeholder="Password">
+	    <button class="btn btn-success mr-sm-2" type="submit">Sign In</button>
+	  </form>
+	  <a class="btn btn mb-1" id="signup-btn" href="/signup">Sign Up</a>
+	  {% endif %}
+	  <strong class="text ml-4 mr-4" style="color:#FFFFFF;background-color:#000000;" id="date"></strong>
 	  <script src="{{url_for('static', filename='date.js')}}"></script>
 	  <button class="btn" id="darkBtn" onclick="{change_mode();}">Dark mode</button>
 	</div>
@@ -62,7 +73,7 @@
       <div class="row">
 	<!-- Begin page content -->
 	<main role="main" class="container col-md-12">
-	  <!-- Posibles mensajes flash -->
+	  <!-- Posible flash messages -->
 		{% with msgs=get_flashed_messages() %}
 		{% if msgs %}
 			{% for msg in msgs %}

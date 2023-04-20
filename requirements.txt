@@ -2,3 +2,5 @@
 flask
 Flask-RESTful
 pymongo
+gunicorn
+pickleshare

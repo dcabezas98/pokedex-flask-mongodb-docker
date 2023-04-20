@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify
 from flask_restful import Api, Resource, reqparse
 from pymongo import MongoClient
+from users import *
 
 app = Flask(__name__)
 app.secret_key='this-is-a-very-secret-key'
@@ -318,5 +319,83 @@ class Pkmn(Resource):
 api.add_resource(Pkmn, "/api2/pokemon/<id>")
 api.add_resource(Pkmns, "/api2/pokemon")
 
+###################
+# User management #
+###################
+
+# Login
+@app.route('/login', methods=['POST'])
+def login():
+    user = request.form['user']
+    passwd = request.form['passwd']
+    
+    if checkUser(user):
+        if passwd == getUser(user)['passwd']:
+            session['user']=user
+            session['urls'] = []
+            session['names']= []
+            flash(user+' logged in successfully :D')
+        else:
+            flash('Incorrect password :(')
+    else:
+        flash('User not registered :(')
+
+    return redirect(url_for('home'))
+
+# Sign Up
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        user = request.form['user']
+        passwd = request.form['passwd']
+        color = request.form['color']
+        if not checkUser(user):          
+            session['user']=user
+            session['urls'] = []
+            session['names']= []
+            addUser(user,{'passwd':passwd, 'color':color})
+            flash(user+' successfully signed up :D')
+        else:
+            flash(user+' is already registered >:(')
+        return redirect(url_for('home'))
+
+    return render_template('signup.html')
+
+@app.route('/logout') # Log out
+def logout():
+    flash('Good bye '+session['user']+'!')
+    session['user']=''
+    return redirect(url_for('home'))
+
+@app.route('/user') # User info and options
+def user():
+    return render_template('user.html', user=getUser(session['user']))
+
+@app.route('/change', methods=['GET','POST']) # Change user data
+def change():
+    if request.method == 'POST':
+        user = request.form['user']
+        passwd = request.form['passwd']
+        color = request.form['color']
+
+        if user == session['user'] or not checkUser(user):
+            delUser(session['user']) # Delete old user
+            addUser(user,{'passwd':passwd, 'color':color}) # Add new user
+            session['user']=user
+            flash('Changes performed successfully :)')
+            return redirect(url_for('home'))
+        else:
+            flash(user+' is already registered, the changes were not saved >:(')
+            return redirect(url_for('change'))
+        
+    return render_template('change.html', user=getUser(session['user']))
+
+@app.route('/delete')
+def delete():
+    delUser(session['user'])
+    flash('User '+session['user']+' has been deleted')
+    session['user']=''
+    return redirect(url_for('home'))
+
 if __name__=='__main__':
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=False, host="0.0.0.0", port=5000)
