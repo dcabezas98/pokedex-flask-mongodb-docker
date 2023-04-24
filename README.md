@@ -2,7 +2,7 @@
 
 The original Pokedex in a dockerized Flask app with Flask and MongoDB in separate containers.
 
-The web app includes a database with the usual operations (search, add, edit, delete) and some charts with statistics.
+The web app includes a database with the usual operations (search, add, edit, delete) and some charts with statistics. It also has a REST API (two actually, one programmed with the *flask_restful* package and another programmed traditionally) that can be tested with the Postman collections found in the repository.
 Other functionality (user sessions, maps, ...) has been integrated with the only pourpose of learning about the specific tools for them.
 
 ![pokedex](https://user-images.githubusercontent.com/24246102/234062059-e1b8b4a8-563c-4a28-b625-3e65ea943708.png)
