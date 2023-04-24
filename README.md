@@ -13,11 +13,12 @@ The instructions are very simple and also work in many other Linux distributions
 
 Just clone or download the repository and run `docker-compose build` and `docker-compose up` in your terminal.
 Access the direction `http://0.0.0.0:5000/pokemon` in your web browser to access the app, but the pokedex will be empty.
-To recover the database you may restore it from the mongo shell, just run the following commands in another terminal:
+To recover the database you may restore it from the shell, just run the following commands in another terminal:
 ```
 docker exec -it name sh
 mongorestore --drop
 mongosh
 ```
+The last line just opens the mongo shell, where you may interact with the database.
 
 Hope you enjoy!
